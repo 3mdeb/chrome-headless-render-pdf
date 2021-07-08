@@ -61,6 +61,7 @@ class RenderPDF {
             displayHeaderFooter: def('displayHeaderFooter', false),
             headerTemplate: def('headerTemplate', undefined),
             footerTemplate: def('footerTemplate', undefined),
+            preferCSSPageSize: def('preferCSSPageSize', undefined),
         };
 
         this.commandLineOptions = {
@@ -202,6 +203,10 @@ class RenderPDF {
                 scale = 2;
             }
             options.scale = scale;
+        }
+
+        if(this.options.preferCSSPageSize !== undefined) {
+            options.preferCSSPageSize = true;
         }
 
         return options;

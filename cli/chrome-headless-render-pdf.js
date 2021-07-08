@@ -32,6 +32,7 @@ const argv = require('minimist')(process.argv.slice(2), {
         'include-background',
         'landscape',
         'display-header-footer',
+        'prefer-css-page-size',
     ]
 });
 
@@ -135,6 +136,11 @@ if(typeof argv['footer-template'] === 'string') {
     footerTemplate = argv['footer-template'];
 }
 
+let preferCSSPageSize;
+if (argv['prefer-css-page-size']) {
+    preferCSSPageSize = true;
+}
+
 (async () => {
     try {
         const jobs = generateJobList(urls, pdfs);
@@ -155,6 +161,7 @@ if(typeof argv['footer-template'] === 'string') {
             displayHeaderFooter,
             headerTemplate,
             footerTemplate,
+            preferCSSPageSize,
         });
     } catch (e) {
         console.error(e);
@@ -196,6 +203,7 @@ function printHelp() {
     console.log('    --display-header-footer  display text headers and footers');
     console.log('    --header-template        HTML template for the header. Inject variables using the classes "date", "title", "url", "pageNumber" or "totalPages"');
     console.log('    --footerTemplate         HTML template for the footer. Inject variables using the classes "date", "title", "url", "pageNumber" or "totalPages"');
+    console.log('    --prefer-css-page-size')
     console.log('');
     console.log('  Example:');
     console.log('    Render single pdf file');
